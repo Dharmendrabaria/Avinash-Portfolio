@@ -1,38 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiMail, FiChevronDown } from 'react-icons/fi';
 import { HiSparkles } from 'react-icons/hi';
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
+import { TypeAnimation } from 'react-type-animation';
+import Magnetic from './Magnetic';
 import './Hero.css';
 
-// No GlitchText component needed anymore
-
-const DESIGN_QUOTES = [
-  "Building digital experiences that matter.",
-  "Design is intelligence made visible.",
-  "Simplifying the complex through design.",
-  "Crafting pixel-perfect visual stories."
-];
-
 const Hero = () => {
-  const quoteRef = useRef(null);
-
-  useEffect(() => {
-    let idx = 0;
-    const interval = setInterval(() => {
-      idx = (idx + 1) % DESIGN_QUOTES.length;
-      if (quoteRef.current) {
-        quoteRef.current.style.opacity = '0';
-        quoteRef.current.style.transform = 'translateY(10px)';
-        setTimeout(() => {
-          if (quoteRef.current) {
-            quoteRef.current.textContent = DESIGN_QUOTES[idx];
-            quoteRef.current.style.opacity = '1';
-            quoteRef.current.style.transform = 'translateY(0)';
-          }
-        }, 400);
-      }
-    }, 4000);
-    return () => clearInterval(interval);
+  const particlesInit = useCallback(async engine => {
+    await loadSlim(engine);
   }, []);
 
   const scrollTo = (id) => {
@@ -43,90 +21,149 @@ const Hero = () => {
   return (
     <section id="home" className="hero-section">
       {/* Background Enhancements */}
+      {/* Interactive Cyberpunk Particles Background */}
       <div className="hero-bg">
-        <div className="hero-noise"></div>
-        <div className="hero-rays"></div>
-        <div className="hero-glow-orb purple-orb"></div>
-        <div className="hero-glow-orb cyan-orb"></div>
+        <Particles
+          id="tsparticles"
+          init={particlesInit}
+          options={{
+            fullScreen: { enable: false, zIndex: 0 },
+            fpsLimit: 60, /* Lowered for better performance */
+            interactivity: {
+              events: { onClick: { enable: true, mode: "push" }, onHover: { enable: true, mode: "repulse" }, resize: true },
+              modes: { push: { quantity: 2 }, repulse: { distance: 80, duration: 0.4 } },
+            },
+            particles: {
+              color: { value: ["#06d6f7", "#6200ea"] },
+              links: { color: "random", distance: 120, enable: true, opacity: 0.1, width: 1 },
+              move: { direction: "none", enable: true, outModes: { default: "bounce" }, random: false, speed: 1, straight: false },
+              number: { density: { enable: true, area: 800 }, value: 40 }, /* Reduced particle count */
+              opacity: { value: 0.3 },
+              shape: { type: "circle" },
+              size: { value: { min: 1, max: 2 } },
+            },
+            detectRetina: true,
+          }}
+          className="interactive-particles"
+        />
+        <div className="hero-glow-orb purple-orb" style={{opacity: 0.5}}></div>
+        <div className="hero-glow-orb cyan-orb" style={{opacity: 0.5}}></div>
       </div>
 
       <div className="hero-content">
-        {/* Left side */}
+        {/* Left side — split into top and bottom for mobile ordering */}
         <motion.div
           className="hero-left"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="hero-tag">
-            <HiSparkles size={16} />
-            <span>Creative Designer</span>
+          {/* === TOP BLOCK: tag + name + roles + stats === */}
+          <div className="hero-top-block">
+            <div className="hero-tag">
+              <HiSparkles size={16} />
+              <span>Creative Designer</span>
+            </div>
+
+            <div className="hero-greeting-wrap">
+              <span className="hero-greeting-hand">Creative Designer</span>
+            </div>
+
+            <div className="hero-name-wrap">
+              <h1 className="hero-name">
+                Avi<span className="highlight">nash</span>
+              </h1>
+            </div>
+
+            <motion.div
+              className="hero-roles"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              <div className="role-badge">UI/UX Designer</div>
+              <div className="role-dot"></div>
+              <div className="role-badge">Brand Strategist</div>
+              <div className="role-dot"></div>
+              <div className="role-badge">Visual Artist</div>
+            </motion.div>
+
+            <motion.div className="hero-stats"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, ease: "easeOut" }}>
+              <div className="hero-stat-card">
+                <span className="stat-num">2+</span>
+                <span className="stat-label">Years Exp.</span>
+              </div>
+              <div className="hero-stat-card">
+                <span className="stat-num">50+</span>
+                <span className="stat-label">Projects</span>
+              </div>
+              <div className="hero-stat-card">
+                <span className="stat-num">U.G.</span>
+                <span className="stat-label">Urban Gujarat</span>
+              </div>
+            </motion.div>
           </div>
 
-          <div className="hero-greeting-wrap">
-            <span className="hero-greeting-hand">Creative Designer</span>
+          {/* === MOBILE IMAGE SLOT — image renders here on mobile via CSS === */}
+          <div className="hero-mobile-image-slot">
+            <motion.div
+              className="hero-image-container"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="hero-image-polygon">
+                <img src="/avinash_profile.jpeg" alt="Avinash" className="hero-img-inner" />
+              </div>
+              <div className="hero-image-border"></div>
+            </motion.div>
           </div>
 
-          <div className="hero-name-wrap">
-            <h1 className="hero-name">
-              Avi<span className="highlight">nash</span>
-            </h1>
+          {/* === BOTTOM BLOCK: quote + buttons === */}
+          <div className="hero-bottom-block">
+            <motion.div className="hero-quote-wrap"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.0 }}>
+              <span className="hero-quote">
+                <TypeAnimation
+                  sequence={[
+                    'Building digital experiences that matter.', 3000,
+                    'Design is intelligence made visible.', 3000,
+                    'Simplifying the complex through design.', 3000,
+                    'Crafting pixel-perfect visual stories.', 3000,
+                  ]}
+                  wrapper="span"
+                  cursor={true}
+                  repeat={Infinity}
+                />
+              </span>
+            </motion.div>
+
+            <motion.div
+              className="hero-btns"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2 }}
+            >
+              <Magnetic>
+                <button className="btn-primary" onClick={() => scrollTo('projects')}>
+                  View Projects <FiArrowRight size={18} />
+                </button>
+              </Magnetic>
+              <Magnetic>
+                <button className="btn-secondary" onClick={() => scrollTo('contact')}>
+                  Contact Me <FiMail size={18} />
+                </button>
+              </Magnetic>
+            </motion.div>
           </div>
-
-          <motion.div
-            className="hero-roles"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-          >
-            <div className="role-badge">UI/UX Designer</div>
-            <div className="role-dot"></div>
-            <div className="role-badge">Brand Strategist</div>
-            <div className="role-dot"></div>
-            <div className="role-badge">Visual Artist</div>
-          </motion.div>
-
-          <motion.div className="hero-stats"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, ease: "easeOut" }}>
-            <div className="hero-stat-card">
-              <span className="stat-num">2+</span>
-              <span className="stat-label">Years Exp.</span>
-            </div>
-            <div className="hero-stat-card">
-              <span className="stat-num">50+</span>
-              <span className="stat-label">Projects</span>
-            </div>
-            <div className="hero-stat-card">
-              <span className="stat-num">U.G.</span>
-              <span className="stat-label">Urban Gujarat</span>
-            </div>
-          </motion.div>
-
-          <motion.div className="hero-quote-wrap"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.0 }}>
-            <span className="hero-quote" ref={quoteRef}>{DESIGN_QUOTES[0]}</span>
-          </motion.div>
-
-          <motion.div
-            className="hero-btns"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2 }}
-          >
-            <button className="btn-primary" onClick={() => scrollTo('projects')}>
-              View Projects <FiArrowRight size={18} />
-            </button>
-            <button className="btn-secondary" onClick={() => scrollTo('contact')}>
-              Contact Me <FiMail size={18} />
-            </button>
-          </motion.div>
         </motion.div>
 
-        {/* Right side - profile image */}
+        {/* Right side - profile image (DESKTOP only, hidden on mobile) */}
         <motion.div
           className="hero-right"
           initial={{ opacity: 0, scale: 0.9 }}

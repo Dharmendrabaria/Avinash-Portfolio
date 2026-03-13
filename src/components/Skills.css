@@ -128,3 +128,10 @@
 @media (max-width: 500px) {
   .skills-circular-grid { grid-template-columns: 1fr; }
 }
+@media (max-width: 360px) {
+  .skills-linear-list { padding: 24px 14px; }
+  .linear-skills-title { font-size: 1.3rem; }
+  .circular-value { font-size: 1.3rem; }
+  .tool-card { padding: 22px 14px; }
+  .tool-name { font-size: 1.1rem; }
+}

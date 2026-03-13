@@ -30,7 +30,14 @@ const Cursor = () => {
 
       if (
         target.closest('.project-card') ||
-        target.closest('.gallery-item')
+        target.closest('.gallery-item') ||
+        target.closest('a') ||
+        target.closest('button') ||
+        target.closest('.btn-primary') ||
+        target.closest('.btn-secondary') ||
+        target.closest('input') ||
+        target.closest('textarea') ||
+        target.closest('.social-btn')
       ) {
         setHovered(true);
       } else {

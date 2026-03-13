@@ -194,3 +194,21 @@
   .about-grid { grid-template-columns: 1fr; }
   .profile-card { position: static; max-width: 400px; margin: 0 auto; }
 }
+@media (max-width: 480px) {
+  .profile-card { padding: 24px 18px; }
+  .profile-img { width: 130px; height: 130px; }
+  .profile-name { font-size: 1.5rem; }
+  .dropcap::first-letter { font-size: 3.5rem; }
+  .timeline-item { grid-template-columns: 44px 2px 1fr; gap: 0 16px; }
+  .timeline-icon { width: 44px; height: 44px; font-size: 1.2rem; }
+}
+@media (max-width: 360px) {
+  .profile-card { padding: 18px 14px; }
+  .profile-img { width: 110px; height: 110px; }
+  .profile-name { font-size: 1.3rem; }
+  .about-text { font-size: 0.95rem; }
+  .timeline-icon { width: 38px; height: 38px; border-radius: 10px; }
+  .timeline-year { font-size: 0.75rem; }
+  .timeline-title { font-size: 1.05rem; }
+  .timeline-desc { font-size: 0.88rem; }
+}

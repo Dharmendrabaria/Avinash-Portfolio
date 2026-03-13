@@ -88,3 +88,8 @@
   .footer-grid { grid-template-columns: 1fr; }
   .footer { padding-bottom: 100px; }
 }
+@media (max-width: 360px) {
+  .footer { padding: 40px 4% 100px; }
+  .footer-tagline { font-size: 0.82rem; }
+  .footer-links-group li button, .footer-links-group li span { font-size: 0.82rem; }
+}

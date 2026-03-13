@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiMail, FiMessageCircle, FiPhoneCall, FiSend, FiLoader } from 'react-icons/fi';
 import { useFadeInOnScroll } from '../context/ThemeContext';
+import Magnetic from './Magnetic';
 import './Contact.css';
 
 const Contact = () => {
@@ -129,13 +130,15 @@ ${formData.name}`;
                 <div className="input-glow"></div>
               </div>
 
-              <button type="submit" className="btn-primary form-btn" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <><FiLoader className="spin" /> Processing...</>
-                ) : (
-                  <>Send Message <FiSend size={18} /></>
-                )}
-              </button>
+              <Magnetic>
+                <button type="submit" className="btn-primary form-btn" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <><FiLoader className="spin" /> Processing...</>
+                  ) : (
+                    <>Send Message <FiSend size={18} /></>
+                  )}
+                </button>
+              </Magnetic>
 
               {successMessage && (
                 <div className="form-success-msg" style={{ marginTop: '20px', padding: '15px', borderRadius: '10px', background: 'rgba(6,214,160,0.1)', border: '1px solid rgba(6,214,160,0.3)', color: 'var(--accent-green)', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '10px', animation: 'fadeIn 0.4s forwards' }}>

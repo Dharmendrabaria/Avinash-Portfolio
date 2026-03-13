@@ -1,7 +1,20 @@
 import React, { useState } from 'react';
 import { FiFolder, FiX, FiExternalLink, FiArrowRight } from 'react-icons/fi';
+import { Tilt } from 'react-tilt';
 import { useFadeInOnScroll } from '../context/ThemeContext';
 import './Projects.css';
+
+const defaultTiltOptions = {
+	reverse:        false,
+	max:            15,
+	perspective:    1000,
+	scale:          1.02,
+	speed:          1000,
+	transition:     true,
+	axis:           null,
+	reset:          true,
+	easing:         "cubic-bezier(.03,.98,.52,.99)",
+};
 
 const projects = [
   {
@@ -75,28 +88,29 @@ const Projects = () => {
 
         <div className="projects-grid fade-in-section" ref={gridRef}>
           {projects.map((project, index) => (
-            <div 
-              key={project.id} 
-              className="project-card"
-              onClick={() => setSelectedProject(project)}
-              style={{ transitionDelay: `${0.1 * index}s` }}
-            >
-              <div className="project-image-wrap">
-                <img src={project.image} alt={project.title} className="project-image" />
-                <div className="project-overlay" style={{ background: `linear-gradient(to top, ${project.color}E6, rgba(0,0,0,0.2))` }}>
-                  <div className="project-view-btn">View Case Study <FiArrowRight /></div>
+            <Tilt options={defaultTiltOptions} key={project.id}>
+              <div 
+                className="project-card"
+                onClick={() => setSelectedProject(project)}
+                style={{ transitionDelay: `${0.1 * index}s`, height: '100%' }}
+              >
+                <div className="project-image-wrap">
+                  <img src={project.image} alt={project.title} className="project-image" />
+                  <div className="project-overlay" style={{ background: `linear-gradient(to top, ${project.color}E6, rgba(0,0,0,0.2))` }}>
+                    <div className="project-view-btn">View Case Study <FiArrowRight /></div>
+                  </div>
+                </div>
+                <div className="project-info">
+                  <span className="project-category" style={{ color: project.color }}>{project.category}</span>
+                  <h3 className="project-title">{project.title}</h3>
+                  <div className="project-tools">
+                    {project.tools.map(tool => (
+                      <span key={tool} className="tool-tag">{tool}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="project-info">
-                <span className="project-category" style={{ color: project.color }}>{project.category}</span>
-                <h3 className="project-title">{project.title}</h3>
-                <div className="project-tools">
-                  {project.tools.map(tool => (
-                    <span key={tool} className="tool-tag">{tool}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
+            </Tilt>
           ))}
         </div>
       </div>

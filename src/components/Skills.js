@@ -1,7 +1,20 @@
 import React from 'react';
 import { FiTarget } from 'react-icons/fi';
+import { Tilt } from 'react-tilt';
 import { useFadeInOnScroll } from '../context/ThemeContext';
 import './Skills.css';
+
+const defaultTiltOptions = {
+	reverse:        false,
+	max:            15,
+	perspective:    1000,
+	scale:          1.05,
+	speed:          1000,
+	transition:     true,
+	axis:           null,
+	reset:          true,
+	easing:         "cubic-bezier(.03,.98,.52,.99)",
+};
 
 const designSkills = [
   { name: 'UI/UX Design', percent: 95, color: '#8b5cf6' },
@@ -46,11 +59,13 @@ const CircularProgress = ({ percent, color, delay }) => {
 const ToolCard = ({ tool, index }) => {
   const ref = useFadeInOnScroll();
   return (
-    <div className="tool-card glass-card fade-in-section" ref={ref} style={{ transitionDelay: `${0.1 * index}s` }}>
-      <CircularProgress percent={tool.percent} color="var(--accent-purple)" delay={0} />
-      <h4 className="tool-name">{tool.icon} {tool.name}</h4>
-      <span className="tool-level">{tool.level}</span>
-    </div>
+    <Tilt options={defaultTiltOptions}>
+      <div className="tool-card glass-card fade-in-section" ref={ref} style={{ transitionDelay: `${0.1 * index}s`, height: '100%' }}>
+        <CircularProgress percent={tool.percent} color="var(--accent-purple)" delay={0} />
+        <h4 className="tool-name">{tool.icon} {tool.name}</h4>
+        <span className="tool-level">{tool.level}</span>
+      </div>
+    </Tilt>
   );
 };
 

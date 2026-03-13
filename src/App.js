@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
+import Lenis from '@studio-freight/lenis';
 import Cursor from './components/Cursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -60,6 +61,29 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
 
+  // Initialize Lenis Smooth Scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, []);
+
   useEffect(() => {
     let interval;
     if (progress < 100) {
@@ -81,9 +105,11 @@ function App() {
       <div className={`loading-screen ${fadeOut ? 'fade-out' : ''}`}>
         <svg className="loading-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M50 85L85 25H65L50 51L35 25H15L50 85Z" fill="var(--accent-cyan)" />
-          <path d="M50 15L15 75H35L50 49L65 75H85L50 15Z" fill="white" stroke="var(--bg-primary)" strokeWidth="4" />
+          <path d="M50 15L15 75H35L50 49L65 75H85L50 15Z" fill="var(--text-primary)" stroke="var(--bg-primary)" strokeWidth="4" />
         </svg>
         
+        <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', fontWeight: '800', letterSpacing: '6px', background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginTop: '-10px' }}>AVINASH</div>
+
         <div className="loading-bar-wrap">
           <div className="loading-bar" style={{ width: `${progress}%`, transition: 'width 0.2s ease-out' }}></div>
         </div>
