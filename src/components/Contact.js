@@ -40,7 +40,7 @@ ${formData.name}`;
         setSuccessMessage('Message generated successfully! Redirecting to WhatsApp...');
         
         // Use the universal WhatsApp deep link that handles both mobile apps and desktop web perfectly
-        const waLink = `https://api.whatsapp.com/send?phone=918799462715&text=${textEncoded}`;
+        const waLink = `https://api.whatsapp.com/send?phone=918347717938&text=${textEncoded}`;
         window.open(waLink, '_blank');
         
         setFormData({ name: '', email: '', message: '' });
@@ -70,11 +70,11 @@ ${formData.name}`;
           <div className="quick-connect">
             <h3 className="contact-heading">Direct Channels</h3>
             
-            <a href="https://wa.me/918799462715" target="_blank" rel="noreferrer" className="contact-card whatsapp">
+            <a href="https://wa.me/918347717938" target="_blank" rel="noreferrer" className="contact-card whatsapp">
               <div className="c-icon"><FiMessageCircle size={28} /></div>
               <div className="c-info">
                 <h4>WhatsApp</h4>
-                <span>+91 87994 62715</span>
+                <span>+91 83477 17938</span>
               </div>
             </a>
 
@@ -86,11 +86,11 @@ ${formData.name}`;
               </div>
             </a>
 
-            <a href="sms:+918799462715" className="contact-card sms">
+            <a href="sms:+918347717938" className="contact-card sms">
               <div className="c-icon"><FiPhoneCall size={28} /></div>
               <div className="c-info">
                 <h4>SMS / Call</h4>
-                <span>+91 87994 62715</span>
+                <span>+91 83477 17938</span>
               </div>
             </a>
           </div>
