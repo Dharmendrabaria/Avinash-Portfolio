@@ -1,0 +1,134 @@
+.contact-section {
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 80px;
+  align-items: stretch;
+}
+@media (max-width: 900px) {
+  .contact-wrapper { grid-template-columns: 1fr; gap: 50px; }
+}
+
+.contact-heading {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
+}
+
+/* Quick Connect Cards */
+.quick-connect { display: flex; flex-direction: column; gap: 20px; }
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 24px 30px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  position: relative;
+}
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: currentColor;
+  opacity: 0.5;
+  transition: width 0.4s, opacity 0.4s;
+}
+.contact-card:hover::before { width: 100%; opacity: 0.05; }
+.contact-card:hover { transform: translateX(10px); border-color: currentColor; }
+
+.contact-card.whatsapp { color: #25D366; }
+.contact-card.email { color: var(--accent-purple); }
+.contact-card.sms { color: var(--accent-cyan); }
+
+.c-icon {
+  width: 60px; height: 60px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  flex-shrink: 0;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: transform 0.4s;
+}
+.contact-card:hover .c-icon { transform: scale(1.1) rotate(10deg); }
+
+.c-info h4 { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
+.c-info span { font-size: 0.95rem; color: var(--text-secondary); }
+
+/* Form Container */
+.contact-form-container {
+  padding: 50px;
+  border-radius: 24px;
+  position: relative;
+}
+.contact-form { display: flex; flex-direction: column; gap: 30px; }
+
+/* Animated Premium Inputs */
+.input-group { position: relative; }
+.input-group input, .input-group textarea {
+  width: 100%;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 24px 20px 10px;
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.4s;
+  resize: vertical;
+}
+.input-group label {
+  position: absolute;
+  top: 18px; left: 20px;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.input-group input:focus, .input-group textarea:focus { border-color: var(--accent-purple); background: rgba(0,0,0,0.4); }
+.input-group input:focus ~ label, .input-group input:not(:placeholder-shown) ~ label,
+.input-group textarea:focus ~ label, .input-group textarea:not(:placeholder-shown) ~ label {
+  top: 8px; left: 20px;
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.input-glow {
+  position: absolute;
+  bottom: 0px; left: 50%;
+  transform: translateX(-50%);
+  width: 0%; height: 2px;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px var(--accent-purple);
+  border-radius: 2px;
+}
+.input-group input:focus ~ .input-glow, .input-group textarea:focus ~ .input-glow { width: 100%; }
+
+.form-btn { width: 100%; justify-content: center; padding: 18px; font-size: 1.1rem; margin-top: 10px; }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+@media (max-width: 500px) {
+  .contact-form-container { padding: 30px 20px; }
+}
