@@ -1,6 +1,6 @@
 {
-  "short_name": "Avinash Portfolio",
-  "name": "Avinash – Creative Designer Portfolio",
+  "short_name": "Avinash",
+  "name": "Avinash",
   "description": "Professional portfolio of Avinash, Creative Designer at Urban Gujarat",
   "icons": [
     {
@@ -9,14 +9,10 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512 192x192",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
